@@ -1,0 +1,161 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: Arial, Helvetica, sans-serif;
+}
+/* From Uiverse.io by aryamitra06 */
+.loader {
+  display: flex;
+  align-items: center;
+}
+
+.bar {
+  display: inline-block;
+  width: 3px;
+  height: 20px;
+  background-color: rgba(255, 255, 255, 0.5);
+  border-radius: 10px;
+  animation: scale-up4 1s linear infinite;
+}
+
+.bar:nth-child(2) {
+  height: 35px;
+  margin: 0 5px;
+  animation-delay: 0.25s;
+}
+
+.bar:nth-child(3) {
+  animation-delay: 0.5s;
+}
+
+@keyframes scale-up4 {
+  20% {
+    background-color: #ffff;
+    transform: scaleY(1.5);
+  }
+
+  40% {
+    transform: scaleY(1);
+  }
+}
+
+/* notfound test */
+
+.bsod {
+  --light-grey: #e0e2f4;
+  --grey: #aaaaaa;
+  --blue: #0414a7;
+
+  background: var(--blue);
+  padding-top: 10%;
+  font-family: "VT323", monospace;
+  width: 100%;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.bsod h1,
+.bsod h2,
+.bsod h3,
+.bsod h4,
+.bsod p,
+.bsod a {
+  color: var(--light-grey);
+}
+
+.bsod p {
+  font: normal 20px/1.25rem "VT323", monospace;
+}
+
+.bsod h1 {
+  font: normal 2.75rem/1.05em "VT323", monospace;
+}
+
+.bsod h2 {
+  font: normal 2.25rem/1.25em "VT323", monospace;
+}
+
+.bsod h3 {
+  font: lighter 1.5rem/1.25em "VT323", monospace;
+}
+
+.bsod h4 {
+  font: lighter 1.125rem/1.2222222em "VT323", monospace;
+}
+
+.bsod .neg {
+  text-align: center;
+  color: var(--blue);
+}
+
+.bsod .neg .bg {
+  background: var(--grey);
+  padding: 0 15px 2px 13px;
+}
+
+.bsod .title {
+  margin-bottom: 50px;
+}
+
+.bsod .nav {
+  margin-top: 35px;
+  text-align: center;
+}
+
+.bsod .link {
+  text-decoration: none;
+  padding: 0 9px 2px 8px;
+}
+
+.bsod .link:hover,
+.bsod .link:focus {
+  background: var(--grey);
+  color: var(--blue);
+}
+
+/* From Uiverse.io by Yaseen549 */
+.input {
+  background-color: #212121;
+  max-width: 190px;
+  height: 40px;
+  padding: 10px;
+  /* text-align: center; */
+  border: 2px solid white;
+  border-radius: 5px;
+  /* box-shadow: 3px 3px 2px rgb(249, 255, 85); */
+}
+
+.input:focus {
+  color: rgb(0, 255, 255);
+  background-color: #212121;
+  outline-color: rgb(0, 255, 255);
+  box-shadow: -3px -3px 15px rgb(0, 255, 255);
+  transition: 0.1s;
+  transition-property: box-shadow;
+}
