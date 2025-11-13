@@ -2,6 +2,7 @@
 
 import React from "react";
 import { useRouter } from "next/navigation";
+import { apiFetch } from "@/lib/api";
 
 export default function Profile({ props }) {
   const router = useRouter();
@@ -10,20 +11,16 @@ export default function Profile({ props }) {
     if (!confirm(`Are you sure you want to delete ${props.name}?`)) return;
 
     try {
-      const response = await fetch(`/api/user/${props._id}`, {
+      const response = await apiFetch(`/api/user/${props._id}`, {
         method: "DELETE",
       });
 
-      if (response.ok) {
-        alert("User deleted successfully");
-        router.refresh();
-      } else {
-        const error = await response.json();
-        alert(`Error: ${error.error || "Failed to delete user"}`);
-      }
+      await response.json();
+      alert("User deleted successfully");
+      router.refresh();
     } catch (error) {
       console.error("Delete error:", error);
-      alert("Failed to delete user");
+      alert(error.message || "Failed to delete user");
     }
   };
 

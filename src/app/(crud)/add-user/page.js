@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { apiFetch } from "@/lib/api";
 
 export default function AddUserPage() {
   const router = useRouter();
@@ -26,7 +27,7 @@ export default function AddUserPage() {
     setError("");
 
     try {
-      const response = await fetch("/api/user", {
+      const response = await apiFetch("/api/user", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -36,16 +37,12 @@ export default function AddUserPage() {
 
       const data = await response.json();
 
-      if (response.ok) {
-        alert("User created successfully!");
-        router.push("/users");
-        router.refresh();
-      } else {
-        setError(data.error || "Failed to create user");
-      }
+      alert("User created successfully!");
+      router.push("/users");
+      router.refresh();
     } catch (err) {
       console.error("Error creating user:", err);
-      setError("An error occurred while creating the user");
+      setError(err.message || "An error occurred while creating the user");
     } finally {
       setLoading(false);
     }

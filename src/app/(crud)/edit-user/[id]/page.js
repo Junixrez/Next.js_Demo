@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { apiFetch } from "@/lib/api";
 
 export default function EditUserPage({ params }) {
   const router = useRouter();
@@ -21,20 +22,16 @@ export default function EditUserPage({ params }) {
         const id = resolvedParams.id;
         setUserId(id);
 
-        const response = await fetch(`/api/user/${id}`);
+        const response = await apiFetch(`/api/user/${id}`);
         const data = await response.json();
 
-        if (response.ok) {
-          setFormData({
-            name: data.user.name,
-            email: data.user.email,
-          });
-        } else {
-          setError(data.error || "Failed to fetch user");
-        }
+        setFormData({
+          name: data.user.name,
+          email: data.user.email,
+        });
       } catch (err) {
         console.error("Error fetching user:", err);
-        setError("An error occurred while fetching user data");
+        setError(err.message || "An error occurred while fetching user data");
       } finally {
         setLoading(false);
       }
@@ -57,7 +54,7 @@ export default function EditUserPage({ params }) {
     setError("");
 
     try {
-      const response = await fetch(`/api/user/${userId}`, {
+      const response = await apiFetch(`/api/user/${userId}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -67,16 +64,12 @@ export default function EditUserPage({ params }) {
 
       const data = await response.json();
 
-      if (response.ok) {
-        alert("User updated successfully!");
-        router.push("/users");
-        router.refresh();
-      } else {
-        setError(data.error || "Failed to update user");
-      }
+      alert("User updated successfully!");
+      router.push("/users");
+      router.refresh();
     } catch (err) {
       console.error("Error updating user:", err);
-      setError("An error occurred while updating the user");
+      setError(err.message || "An error occurred while updating the user");
     } finally {
       setSubmitting(false);
     }
