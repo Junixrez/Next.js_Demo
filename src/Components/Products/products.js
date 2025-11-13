@@ -12,7 +12,7 @@ export default function Products() {
         const res = await fetch("https://fakestoreapi.com/products");
 
         if (!res.ok) {
-          console.error("Fetch error:", res.status, await res.text());
+          console.error("Fetch error:", res.status, res.statusText);
           throw new Error(
             `Failed to fetch products: ${res.status} ${res.statusText}`
           );

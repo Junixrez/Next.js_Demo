@@ -4,7 +4,7 @@ async function getSingleProduct(id) {
   const res = await fetch(`https://fakestoreapi.com/products/${id}`);
 
   if (!res.ok) {
-    console.error("Fetch error:", res.status, await res.text());
+    console.error("Fetch error:", res.status, res.statusText);
     throw new Error(`Failed to fetch product: ${res.status} ${res.statusText}`);
   }
 
@@ -16,7 +16,7 @@ async function getAllProducts() {
   const res = await fetch("https://fakestoreapi.com/products");
 
   if (!res.ok) {
-    console.error("Fetch error:", res.status, await res.text());
+    console.error("Fetch error:", res.status, res.statusText);
     throw new Error(
       `Failed to fetch products: ${res.status} ${res.statusText}`
     );
@@ -27,13 +27,18 @@ async function getAllProducts() {
 }
 
 export async function generateStaticParams() {
-  const products = await getAllProducts();
-  const ids = products.map((product) => {
-    return {
-      id: product.id.toString(),
-    };
-  });
-  return ids;
+  try {
+    const products = await getAllProducts();
+    const ids = products.map((product) => {
+      return {
+        id: product.id.toString(),
+      };
+    });
+    return ids;
+  } catch (error) {
+    console.error("Error generating static params:", error);
+    return [];
+  }
 }
 
 export default async function ProductDetails({ params }) {

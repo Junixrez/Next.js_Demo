@@ -6,7 +6,7 @@ async function fetchData() {
   });
 
   if (!res.ok) {
-    console.error("Fetch error:", res.status, await res.text());
+    console.error("Fetch error:", res.status, res.statusText);
     throw new Error(`Failed to fetch: ${res.status} ${res.statusText}`);
   }
 

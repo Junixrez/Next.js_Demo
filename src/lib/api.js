@@ -20,7 +20,7 @@ export const apiFetch = async (path, options) => {
   const res = await fetch(url, options);
 
   if (!res.ok) {
-    console.error("Fetch error:", res.status, await res.text());
+    console.error("Fetch error:", res.status, res.statusText);
     throw new Error(`Failed to fetch: ${res.status} ${res.statusText}`);
   }
 
