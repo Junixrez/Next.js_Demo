@@ -4,12 +4,12 @@ async function fetchData() {
   const res = await fetch("https://6912588152a60f10c8216486.mockapi.io/name", {
     next: { revalidate: 5 },
   });
-  
+
   if (!res.ok) {
-    console.error('Fetch error:', res.status, await res.text());
+    console.error("Fetch error:", res.status, await res.text());
     throw new Error(`Failed to fetch: ${res.status} ${res.statusText}`);
   }
-  
+
   return await res.json();
 }
 

@@ -2,24 +2,26 @@ import DetailsCard from "@/Components/DetailsCard";
 
 async function getSingleProduct(id) {
   const res = await fetch(`https://fakestoreapi.com/products/${id}`);
-  
+
   if (!res.ok) {
-    console.error('Fetch error:', res.status, await res.text());
+    console.error("Fetch error:", res.status, await res.text());
     throw new Error(`Failed to fetch product: ${res.status} ${res.statusText}`);
   }
-  
+
   const product = await res.json();
   return product;
 }
 
 async function getAllProducts() {
   const res = await fetch("https://fakestoreapi.com/products");
-  
+
   if (!res.ok) {
-    console.error('Fetch error:', res.status, await res.text());
-    throw new Error(`Failed to fetch products: ${res.status} ${res.statusText}`);
+    console.error("Fetch error:", res.status, await res.text());
+    throw new Error(
+      `Failed to fetch products: ${res.status} ${res.statusText}`
+    );
   }
-  
+
   const products = await res.json();
   return products;
 }
