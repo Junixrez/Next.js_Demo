@@ -8,9 +8,19 @@ export default function Products() {
 
   useEffect(() => {
     async function fetchProducts() {
-      const res = await fetch("https://fakestoreapi.com/products");
-      const products = await res.json();
-      setData(products);
+      try {
+        const res = await fetch("https://fakestoreapi.com/products");
+        
+        if (!res.ok) {
+          console.error('Fetch error:', res.status, await res.text());
+          throw new Error(`Failed to fetch products: ${res.status} ${res.statusText}`);
+        }
+        
+        const products = await res.json();
+        setData(products);
+      } catch (error) {
+        console.error("Error fetching products:", error);
+      }
     }
     fetchProducts();
   }, []);
